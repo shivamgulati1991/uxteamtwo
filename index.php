@@ -15,15 +15,10 @@ if (isset($_POST["submit"])) {
 	fwrite($file, "SEEKER INFO\n".$name."\t".$phone."\t".$email."\r\n");
 	fwrite($file, "EXTRA INFO\n".$explain."\t".$experience."\t".$contract."\r\n");
 	fclose($file);
-
 	require 'vendor/autoload.php';
-
 $file = file_get_contents('front.html');
 $back = file_get_contents('back.html');
-
-
 $lob = new \Lob\Lob('test_e17cf73fd6ce6ee1c68e9e85bae7adf0b25');
-
 $to_address = $lob->addresses()->create(array(
   'name'          => $owner,
   'address_line1' => $add_one,
@@ -32,7 +27,6 @@ $to_address = $lob->addresses()->create(array(
   'address_state' => 'CA',
   'address_zip'   => '27518'
 ));
-
 $from_address = $lob->addresses()->create(array(
   'name'          => 'The Big House',
   'address_line1' => '1201 S Main St',
@@ -43,7 +37,6 @@ $from_address = $lob->addresses()->create(array(
   'email'         => 'goblue@umich.edu',
   'phone'         => '734-647-2583'
 ));
-
 $postcard = $lob->postcards()->create(array(
   'to'          => $to_address['id'],
   'from'        => $from_address['id'],
@@ -63,9 +56,7 @@ $postcard = $lob->postcards()->create(array(
   'data[experience]'  => $experience,
   'data[contract]'  => $contract
 ));
-
 print_r($postcard);
-
 echo '<script language="javascript">';
 echo 'alert("Your postcard has been sent to the owner.")';
 echo '</script>';
@@ -77,6 +68,7 @@ echo '</script>';
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Vacant2Vital</title>
 <link rel="stylesheet" type="text/css" href="css/view.css" media="all">
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript" src="js/view.js"></script>
 
 </head>
@@ -152,7 +144,7 @@ echo '</script>';
 			
 					<li class="buttons">
 			    <input type="hidden" name="form_id" value="1126356" />
-			    
+			    <div class="g-recaptcha" data-sitekey=6LcTVR4TAAAAAAnMQk-rYsLHeJm18Qk_K1tkU-ZZ></div>
 				<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
 		</li>
 			</ul>
